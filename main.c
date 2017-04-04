@@ -13,7 +13,7 @@ struct players
 	char name[10];											// player's name
 	int life_points;										// player's life points
 	int smartness, strength, magic_skills, luck, dexterity; // player's capabilities
-	int slots;												// player's position in the slot
+	int position[2];										// player's position in the slot
 	int shift_slot;											// keeps track if player moved or not, if moved shift_slot == 1, if not shift_slot == 0
 };
 
@@ -23,6 +23,7 @@ struct slot
 
 	int row; 						// row number
 	int column;						// column number
+	int player_no;					// number of player in the slot position
 
 	struct slot *left; 				//	adjacent left slot
 	struct slot *right;				//	adjacent right slot
@@ -30,11 +31,12 @@ struct slot
 	struct slot *down;				// 	adjacent down slot
 }slot;
 
-void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, struct slot **downLeft, struct slot **downRight);
-void printBoard(int boardSize);
-void randomTypeBoard(int boardSize);
 
-struct slot **board;
+void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, struct slot **downLeft, struct slot **downRight);	// creates the board
+void printBoard(int boardSize);																									// prints the details of each slot position
+void randomTypeBoard(int boardSize);																							// assigns a random slot type to each slot position
+
+struct slot **board; // global variable for easy access
 
 int main(void)
 {
