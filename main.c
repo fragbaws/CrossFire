@@ -31,6 +31,10 @@ struct slot
 }slot;
 
 void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, struct slot **downLeft, struct slot **downRight);
+void printBoard(int boardSize);
+void randomTypeBoard(int boardSize);
+
+struct slot **board;
 
 int main(void)
 {
@@ -45,6 +49,8 @@ int main(void)
 	int boardSize = 7;
 
 	createBoard(boardSize, &upLeft, &upRight, &downLeft, &downRight);
+	randomTypeBoard(boardSize);
+	printBoard(boardSize);
 
 
 	return 0;
@@ -56,7 +62,7 @@ void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, str
 	int i,j;
 	//The board is represented as a pointer of pointer to slots
 	//This allocates in memory the space for the pointers to each row of the board
-	struct slot ** board = malloc(boardSize * sizeof(struct slot *));
+	board = malloc(boardSize * sizeof(struct slot *));
 
 
 	for(i = 0; i < boardSize; i++){
@@ -146,21 +152,10 @@ void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, str
 	//assigns pointer of pointer to slot at position (boardSize -1, boardSize -1)
 	*downRight = &board[boardSize -1][boardSize -1];
 
-// Assigning a random slot type to each slot position of the board
+}
 
-	srand((unsigned int)time(NULL));
-	int rdm;
-
-	for(i=0;i<boardSize;i++)
-	{
-		for(j=0;j<boardSize;j++)
-		{
-			rdm = rand()%3;
-			strcpy(board[i][j].slot_type, slot_type[rdm]);
-		}
-	}
-
-// Printing Board
+void printBoard(int boardSize)
+{
 	for(int i=0;i<boardSize;i++)
 	{
 		for(int j=0;j<boardSize;j++)
@@ -169,5 +164,21 @@ void createBoard(int boardSize, struct slot **upLeft, struct slot **upRight, str
 		}
 		printf("\n");
 	}
+}
 
+void randomTypeBoard(int boardSize)
+{
+	// Assigning a random slot type to each slot position of the board
+
+	srand((unsigned int)time(NULL));
+	int rdm;
+
+	for(int i=0;i<boardSize;i++)
+	{
+		for(int j=0;j<boardSize;j++)
+		{
+			rdm = rand()%3;
+			strcpy(board[i][j].slot_type, slot_type[rdm]);
+		}
+	}
 }
