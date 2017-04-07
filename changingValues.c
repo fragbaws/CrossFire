@@ -1,9 +1,3 @@
-/*
- * changingValues.c
- *
- *  Created on: 10 Mar 2017
- *      Author: Declan
- */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -131,7 +125,6 @@ void setWizardValues(struct player *name){
 void playersFromUser(struct player players[]){
 
 	/*Declaring the variables needed.*/
-		//int num_players, num_slots, i, type;
 		int i, type;
 
 		/*Generates different random numbers everytime the random function is called.*/
