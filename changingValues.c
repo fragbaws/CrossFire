@@ -1,4 +1,11 @@
+/*
+ * changingValues.c
+ *
+ *  Created on: 10 Mar 2017
+ *      Author: Declan
+ */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -125,6 +132,7 @@ void setWizardValues(struct player *name){
 void playersFromUser(struct player players[]){
 
 	/*Declaring the variables needed.*/
+		//int num_players, num_slots, i, type;
 		int i, type;
 
 		/*Generates different random numbers everytime the random function is called.*/
@@ -203,6 +211,28 @@ void playersFromUser(struct player players[]){
 			printf("----------------------------------------------------\n");
 		}
 		printf("\n");
+}
+
+void printCapabilities(struct player players[]){
+	int i;
+	/*Print the Player Values for the beginning of the game.*/
+			printf("----------------------------------------------------\n");
+			printf("\t\tPlayer Values\n");
+			printf("----------------------------------------------------\n");
+			/*Prints the players name and type.*/
+			for(i=0; i<num_players; i++){
+				printf("Player %d Details:\n", i+1);
+				printf("Name: %s\n", players[i].name);
+				printf("Type: %s\n", players[i].type);
+				printf("Luck: %d\n", players[i].luck);
+				printf("Smartness: %d\n", players[i].smartness);
+				printf("Magic: %d\n", players[i].magic);
+				printf("Strength: %d\n", players[i].strength);
+				printf("Dexterity: %d\n", players[i].dexterity);
+				printf("Life: %d\n", players[i].life);
+				printf("----------------------------------------------------\n");
+			}
+			printf("\n");
 }
 
 
