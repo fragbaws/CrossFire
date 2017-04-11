@@ -15,6 +15,7 @@ int main(){
 
 	count=1;
 	playersInRangeCounter = 0;
+
 		num_players = userNumberPlayers();
 		/*Creating a array named players of size num_players and it is of type struct
 		player.*/
@@ -43,7 +44,9 @@ int main(){
 
 			typetoSlot(boardSize);
 
-	while(num_players >= 2){
+	int number = num_players;
+
+	while(num_players >= 1){
 
 		round++;
 
@@ -55,13 +58,23 @@ int main(){
 
 
 		/*Play the game.*/
-		runGame(players, slots, num_players, num_slots, boardSize);
+		num_players = runGame(players, slots, num_players, num_slots, boardSize);
 
+		if(num_players == 1)
+		{
+			for(int i = 0;i<number;i++)
+			{
+				if(players[i].left_game != 1 && players[i].life >0)
+				{
+					printf("\nCongratulations, %s! You are the last player standing!\n", players[i].name);
+					printFinalResults(players, i);
+					return 0;
+				}
+			}
+		}
 	}
 
-	if(num_players < 2){
-		printf("There aren't enough players to play the game.\n");
-	}
+
 
 	return 0;
 }

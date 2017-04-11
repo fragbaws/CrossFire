@@ -436,12 +436,9 @@ void typetoSlot(int boardSize)
 
 
 /*Run the game and ask each user if they wish to move or attack.*/
-void runGame(struct player players[], struct slot slots[], int num_players, int num_slots, int boardSize){
+int runGame(struct player players[], struct slot slots[], int num_players, int num_slots, int boardSize){
 
 	int i, j, c, k, ans, ansAttack, ansMagicAttack = 1;	//Declaring local variables
-	int counter = 0;
-
-
 
 		/*	Print the board initially at the start of the game  */
 		printf("The Board:\n");
@@ -451,15 +448,12 @@ void runGame(struct player players[], struct slot slots[], int num_players, int 
 		printf("\nThe battle begins now!\n\n");
 
 		srand(time(NULL));
-
-		if(num_players-counter>1){
-
-
-		for (i = 0; i < num_players; i++){
+		for (i = 0; i < num_players; i++)
+		{
 			/*  Ask the next player to choose an action */
 
-			if(players[i].left_game != 1){ // If that player has not left the game, then continue.
-
+			if(players[i].left_game != 1)// If that player has not left the game, then continue.
+			{
 				printf("%s, %s\n", players[i].name, questions[rand() % 6]);	// 6 is the number of questions in the questions array defined in game.h
 				printf("1: Move\n");		// Call the move function to move the player to a nearby slot
 				printf("2: Attack\n");		// Call the attack function to attack a nearby player
@@ -472,14 +466,16 @@ void runGame(struct player players[], struct slot slots[], int num_players, int 
 					scanf("%d", &ans);
 				}
 
-				/*Switch statement compares the answer input and calls the function that corresponds to the input.*/
-				switch (ans){
-				case 1:
+				/*If statement compares the answer input and calls the function that corresponds to the input.*/
+				if(ans == 1)
+				{
 					movePlayers(board, players, boardSize, i);
 					//printBoard(board, boardSize, players);
 					//printCapabilities(players);
-					break;
-				case 2:
+				}
+
+				else if(ans == 2)
+				{
 					printf("4: Near Attack.\n");
 					printf("5: Distant Attack.\n");
 					if((players[i].smartness + players[i].magic) > 150){
@@ -487,11 +483,12 @@ void runGame(struct player players[], struct slot slots[], int num_players, int 
 					}
 					scanf("%d", &ansAttack);
 
-					switch(ansAttack){
-					case 4:
+					if(ansAttack == 4)
+					{
 						playerToAttackNear(players, boardSize, players[i].row, players[i].column, i);
-						break;
-					case 5:
+					}
+					else if(ansAttack == 5)
+					{
 						for(c=0; c<boardSize; c++){
 							for(j=0; j<boardSize; j++){
 								foundSlots[i][j].no_of_players = 0;
@@ -502,19 +499,20 @@ void runGame(struct player players[], struct slot slots[], int num_players, int 
 						}
 						findSlots(boardSize, players, 0, 0, players[i].row, players[i].column, 2, i);
 						count = 1;
-						break;
-					case 6:
-						while((ansMagicAttack < 1)||(ansMagicAttack > num_players)){
+					}
+					else if(ansAttack == 6)
+					{
+						while((ansMagicAttack < 1)||(ansMagicAttack > num_players))
+						{
 							printf("Enter the player number you wish to attack.\n");
 							scanf("%d", &ansMagicAttack);
 						}
-						break;
 					}
-					break;
+				}
 
-				case 3:
-					counter++; // keeps track of how many players leave the game
-
+				else if(ans == 3)
+				{
+					num_players -= 1; // reduces the number of players left in the game
 					board[players[i].row][players[i].column].no_of_players -= 1; // Reducing the number of players in the slot
 
 					for(int k=0;k<6;k++)
@@ -529,25 +527,13 @@ void runGame(struct player players[], struct slot slots[], int num_players, int 
 					players[i].column = -1;		// Empties the slot
 					players[i].left_game = 1;	// Shows that players has left game
 
-					printf("Player %d a.k.a %s, has left the game!\n\n", i+1, players[i].name);
+					printf("\nPlayer %d a.k.a %s, has left the game!\n\n", i+1, players[i].name);
+
 				}
-
-			break;
 			}
+			printBoard(board, boardSize, players);
 		}
-
-	printBoard(board, boardSize, players);
-
-	}
-	else if(num_players - counter == 1)
-	{
-		printf("You are the last player remaining. You have won the game!\n\n");
-		puts(" ");
-
-		printFinalResults(players, 1);
-		return; // exit function
-	}
-
+return num_players;
 }
 
 /*Check the players current position and then call the correct function based on that position.*/
@@ -982,21 +968,16 @@ void cityMovement(struct player players[], int current_player){
 }
 
 /*This function prints the final player values, e.g. name, player type and life points.*/
-void printFinalResults(struct player players[], int num_players){
+void printFinalResults(struct player players[], int i){
 
-	int i;
 
 	printf("----------------------------------------------------\n");
-	printf("\t\tFinal Player Values\n");
+	printf("\t\tFinal Player Value\n");
 	printf("----------------------------------------------------\n");
 		/*Prints the players name and type.*/
-		for(i=0; i<num_players; i++){
-			if(players[i].left_game != 1)
-			{
 				printf("%s ", players[i].name);
 				printf("(%s, %d)\n", players[i].type, players[i].life);
-			}
-		}
-		printf("----------------------------------------------------\n");
-		printf("\n");
+
+	printf("----------------------------------------------------\n");
+	printf("\n");
 }
