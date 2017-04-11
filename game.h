@@ -1,10 +1,3 @@
-/*
- * game.h
- *
- *  Created on: 10 Mar 2017
- *      Author: Declan
- */
-
 #ifndef GAME_H_
 #define GAME_H_
 
@@ -30,6 +23,6 @@ void attackPlayerNear(struct player players[], int attacked_player, int current_
 void attackPlayerDistant(struct player players[], int attacked_player, int current_player);
 void hillMovement(struct player players[], int current_player);
 void cityMovement(struct player players[], int current_player);
-void printFinalResults(struct player players[], struct slot slots[], int num_players);
+void printFinalResults(struct player players[], int num_players);
 
 #endif /* GAME_H_ */

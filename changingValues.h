@@ -1,9 +1,3 @@
-/*
- * changingValues.h
- *
- *  Created on: 10 Mar 2017
- *      Author: Declan
- */
 #include <stdbool.h>
 #ifndef CHANGINGVALUES_H_
 #define CHANGINGVALUES_H_
@@ -28,6 +22,7 @@ struct player{
 		int row;
 		int column;
 		int position;
+		int left_game;
 };
 
 /*	Defining an enumerator which includes slot types  */

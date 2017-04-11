@@ -1,9 +1,3 @@
-/*
- * main.c
- *
- *  Created on: 10 Mar 2017
- *      Author: Declan
- */
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -30,6 +24,25 @@ int main(){
 		/*Call function to generate the list of players*/
 		playersFromUser(players);
 
+		for(int i=0;i<num_players;i++)
+		{
+			players[i].left_game = 0; // initialising the players to be in the game
+		}
+
+		/*Create array of size num_slots and to store slots*/
+			struct slot slots[num_slots];
+
+			/*get the user to enter the boardSize and store the returned value in the boardSize variable*/
+			boardSize = 7;
+
+			/*Create the board and the slots.*/
+			createBoard(boardSize);
+
+			/*Assign all of the players to randomly picked slots.*/
+			playersToSlots(boardSize, players);
+
+			typetoSlot(boardSize);
+
 	while(num_players >= 2){
 
 		round++;
@@ -40,22 +53,10 @@ int main(){
 		printf("\tROUND %d\n", round);
 		printf("**************************\n");
 
-		/*Create array of size num_slots and to store slots*/
-		struct slot slots[num_slots];
-
-		/*get the user to enter the boardSize and store the returned value in the boardSize variable*/
-		boardSize = 7;
-
-		/*Create the board and the slots.*/
-		createBoard(boardSize);
-
-		/*Assign all of the players to randomly picked slots.*/
-		playersToSlots(boardSize, players);
-
-		typetoSlot(boardSize);
 
 		/*Play the game.*/
 		runGame(players, slots, num_players, num_slots, boardSize);
+
 	}
 
 	if(num_players < 2){
@@ -64,5 +65,3 @@ int main(){
 
 	return 0;
 }
-
-

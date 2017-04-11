@@ -1,9 +1,3 @@
-/*
- * changingValues.c
- *
- *  Created on: 10 Mar 2017
- *      Author: Declan
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -234,5 +228,3 @@ void printCapabilities(struct player players[]){
 			}
 			printf("\n");
 }
-
-
