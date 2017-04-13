@@ -13,9 +13,6 @@ int main(){
 	int boardSize, round=0;
 	setbuf(stdout, NULL);
 
-	count=1;
-	playersInRangeCounter = 0;
-
 		num_players = userNumberPlayers();
 		/*Creating a array named players of size num_players and it is of type struct
 		player.*/
@@ -48,10 +45,14 @@ int main(){
 
 	while(num_players >= 1){
 
-		round++;
+		count=1;
+		playersInRangeCounter = 0;
+
+		round++;	//Update the round
 
 		printf("\n\n\n");
 
+		//print the current round.
 		printf("**************************\n");
 		printf("\tROUND %d\n", round);
 		printf("**************************\n");
@@ -60,6 +61,7 @@ int main(){
 		/*Play the game.*/
 		num_players = runGame(players, slots, num_players, num_slots, boardSize);
 
+		/*If there is only one player left in the game then print the congratulations statement.*/
 		if(num_players == 1)
 		{
 			for(int i = 0;i<number;i++)
@@ -73,8 +75,5 @@ int main(){
 			}
 		}
 	}
-
-
-
 	return 0;
 }
